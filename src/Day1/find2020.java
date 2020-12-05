@@ -1,35 +1,59 @@
 package Day1;
-import java.util.Arrays;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.List;
 
 public class find2020 {
 
-    public static void main(String[] args){
+    public static Result something(int one, int two){
+        int number1 = one;
+        int number2 = two;
 
-        BufferedReader br = new BufferedReader(new FileReader("input.csv"));
+        return new Result(number1, number2);
+    }
 
-        ArrayList<Integer> expenseList = new ArrayList<>(Arrays.asList(1721, 979, 366, 299, 675, 1456));
-        int found = check2020(expenseList);
-        System.out.println(found);
+    public static void main(String[] args) throws IOException {
+        String path = "C:\\Users\\cattoy\\Documents\\Java Projects\\Advent Code\\adventcode\\src\\Day1\\input.csv";
+        File f = new File(path);
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String dataRow = br.readLine();
+        ArrayList<Integer> listOfExpenses = new ArrayList<Integer>();
+        while (dataRow != null){
+            listOfExpenses.add(Integer.parseInt(dataRow));
+            dataRow = br.readLine();
+        }
+        Result found = check2020(listOfExpenses);
+        System.out.println(found.getFirst() + "first" + "second" + found.getSecond());
     }
 
 
-    public static int check2020(ArrayList<Integer> expenses){
+    public static Result check2020(ArrayList<Integer> expenses){
         for(int i = 0; i < expenses.size() - 1; i++){
             for(int j = 1; j < expenses.size() - 2; j++){
                 int sum = expenses.get(i) + expenses.get(j);
                 if(sum == 2020){
-                    return sum;
+                    Result xx = something(expenses.get(i), expenses.get(j));
+                    return xx;
                 }
             }
-        }return -1;
+        }return null;
+    }
+}
+
+final class Result {
+    private final int first;
+    private final int second;
+
+    public Result(int first, int second){
+        this.first = first;
+        this.second = second;
     }
 
-    public static List<>
+    public int getFirst(){
+        return first;
+    }
+
+    public int getSecond(){
+        return second;
+    }
 }
+
