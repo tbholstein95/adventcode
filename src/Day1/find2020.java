@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class find2020 {
 
-    public static Result something(int one, int two){
+    public static Result something(int one, int two, int three){
         int number1 = one;
         int number2 = two;
+        int number3 = three;
 
-        return new Result(number1, number2);
+        return new Result(number1, number2, number3);
     }
 
     public static void main(String[] args) throws IOException {
@@ -22,17 +23,21 @@ public class find2020 {
             dataRow = br.readLine();
         }
         Result found = check2020(listOfExpenses);
-        System.out.println(found.getFirst() + "first" + "second" + found.getSecond());
+        System.out.println("first: " + found.getFirst()  + " second: " + found.getSecond() + " third: " + found.getThird());
     }
 
 
     public static Result check2020(ArrayList<Integer> expenses){
         for(int i = 0; i < expenses.size() - 1; i++){
             for(int j = 1; j < expenses.size() - 2; j++){
-                int sum = expenses.get(i) + expenses.get(j);
-                if(sum == 2020){
-                    Result xx = something(expenses.get(i), expenses.get(j));
-                    return xx;
+                for(int k = 2; k < expenses.size() - 3; k++){
+                    int sum = expenses.get(i) + expenses.get(j) + expenses.get(k);
+                    if(sum == 2020){
+                        Result xx = something(expenses.get(i), expenses.get(j), expenses.get(k));
+                        return xx;
+                }
+//                int sum = expenses.get(i) + expenses.get(j);
+
                 }
             }
         }return null;
@@ -42,10 +47,12 @@ public class find2020 {
 final class Result {
     private final int first;
     private final int second;
+    private final int third;
 
-    public Result(int first, int second){
+    public Result(int first, int second, int third){
         this.first = first;
         this.second = second;
+        this.third = third;
     }
 
     public int getFirst(){
@@ -55,5 +62,7 @@ final class Result {
     public int getSecond(){
         return second;
     }
+
+    public int getThird() { return third; }
 }
 
